@@ -3,58 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tyron Vereen - Professor</title>
+    <title>Tyron Vereen | Professor</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
         }
-        .container {
-            max-width: 800px;
-            margin: auto;
+        .card {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             text-align: center;
+            max-width: 400px;
+            width: 90%;
         }
-        h1 { color: #333; }
-        .info { margin: 20px 0; }
-        .link-container { margin-top: 30px; }
-        a {
+        h1 { margin-bottom: 0.5rem; color: #2c3e50; }
+        p { margin: 0.5rem 0; color: #7f8c8d; }
+        .nav-link {
             display: inline-block;
+            margin-top: 1.5rem;
             padding: 10px 20px;
-            background-color: #007BFF;
+            background-color: #2980b9;
             color: white;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 6px;
+            transition: background 0.3s;
         }
-        a:hover { background-color: #0056b3; }
+        .nav-link:hover { background-color: #3498db; }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="card">
         <h1>Tyron Vereen</h1>
-        <div class="info">
-            <p><strong>Position:</strong> Professor</p>
-            <p><strong>Institution:</strong> Houston City College</p>
-        </div>
-
-        <div class="link-container">
-            <a href="government.html" id="govLink">View Government Page</a>
-        </div>
+        <p><strong>Professor</strong></p>
+        <p>Houston City College</p>
+        
+        <a href="government.html" id="navButton" class="nav-link">Go to Government Page</a>
     </div>
 
     <script>
-        // Javascript to handle the link or add functionality
-        document.getElementById('govLink').addEventListener('click', function() {
-            console.log('Navigating to government page...');
+        // JavaScript link/interaction
+        const navButton = document.getElementById('navButton');
+        
+        navButton.addEventListener('click', (e) => {
+            console.log("Navigating to government.html");
+            // Navigation happens automatically via href
         });
     </script>
-
 </body>
 </html>
