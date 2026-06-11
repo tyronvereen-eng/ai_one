@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Administration: The Engine of Government</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fade-in { animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans">
+
+    <div class="max-w-4xl mx-auto p-6">
+        <header class="mb-10 text-center">
+            <h1 class="text-4xl font-extrabold text-blue-900 mb-2">Public Administration</h1>
+            <p class="text-xl text-slate-600">Making Democracy Work: From Policy to Practice</p>
+        </header>
+
+        <section id="lesson-content" class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
+            <h2 id="title" class="text-2xl font-bold mb-4">The Bureaucratic Machine</h2>
+            <p id="description" class="text-lg leading-relaxed mb-6">
+                Public Administration is the implementation of government policy. It is the bridge between the laws passed by elected officials and the services citizens receive every day—like clean water, public schools, and national defense.
+            </p>
+            <div id="quiz-area" class="mt-6"></div>
+            <div id="ai-response" class="mt-6 hidden p-4 bg-indigo-50 border-l-4 border-indigo-600 rounded"></div>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <button onclick="changeTopic('bureaucracy')" class="p-6 bg-blue-600 text-white rounded-xl shadow-lg hover:bg-blue-700 transition">What is Bureaucracy?</button>
+            <button onclick="changeTopic('budget')" class="p-6 bg-emerald-600 text-white rounded-xl shadow-lg hover:bg-emerald-700 transition">Budget Simulation</button>
+        </div>
+    </div>
+
+    <script>
+        const apiKey = ""; // API key managed by the environment
+        const content = {
+            bureaucracy: {
+                title: "Understanding Bureaucracy",
+                desc: "Max Weber defined bureaucracy as a system based on hierarchy, specialization, and formal rules. While it often gets a bad rap for 'red tape,' it is the only way to manage large-scale organizations efficiently and impartially.",
+                quiz: `<button onclick="askGemini()" class="mt-4 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium">✨ Policy Deep-Dive</button>`
+            },
+            budget: {
+                title: "City Manager Simulation",
+                desc: "You have $100M to allocate. Choose your focus:",
+                quiz: `<div class="space-y-4">
+                    <button onclick="result('Education')" class="w-full text-left p-4 bg-slate-100 hover:bg-slate-200 rounded">Invest in Schools</button>
+                    <button onclick="result('Infrastructure')" class="w-full text-left p-4 bg-slate-100 hover:bg-slate-200 rounded">Build Roads/Bridges</button>
+                    <button onclick="result('Public Safety')" class="w-full text-left p-4 bg-slate-100 hover:bg-slate-200 rounded">Public Safety & Fire</button>
+                </div>`
+            }
+        };
+
+        function changeTopic(topic) {
+            const data = content[topic];
+            document.getElementById('title').innerText = data.title;
+            document.getElementById('description').innerText = data.desc;
+            document.getElementById('quiz-area').innerHTML = data.quiz;
+            document.getElementById('ai-response').classList.add('hidden');
+            document.getElementById('lesson-content').classList.add('fade-in');
+        }
+
+        async function askGemini() {
+            const aiArea = document.getElementById('ai-response');
+            aiArea.innerHTML = "Thinking...";
+            aiArea.classList.remove('hidden');
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: "Explain the importance of public administration bureaucracy in 2 sentences, providing a real-world example." }] }]
+                    })
+                });
+                const data = await response.json();
+                const text = data.candidates[0].content.parts[0].text;
+                aiArea.innerHTML = `<p class="font-bold text-indigo-900">✨ AI Insight:</p><p class="mt-2 text-indigo-800">${text}</p>`;
+            } catch (error) {
+                aiArea.innerHTML = "Sorry, I'm having trouble connecting to the AI assistant right now.";
+            }
+        }
+
+        function result(choice) {
+            document.getElementById('quiz-area').innerHTML = `<div class="p-4 bg-blue-50 border-l-4 border-blue-600 rounded">
+                <p class="font-bold">Decision Recorded!</p>
+                <p>By choosing <strong>${choice}</strong>, you have influenced city policy. In Public Admin, every budget dollar reflects a political priority.</p>
+            </div>`;
+        }
+    </script>
+</body>
+</html>
