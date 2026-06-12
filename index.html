@@ -7,56 +7,69 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
+            background-color: #f0f2f5;
             color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
         }
         .card {
             background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
-            max-width: 400px;
+            max-width: 450px;
             width: 90%;
         }
-        h1 { margin-bottom: 0.5rem; color: #2c3e50; }
-        p { margin: 0.5rem 0; color: #7f8c8d; }
+        h1 { margin-bottom: 0.5rem; color: #1a2a6c; }
+        .subtitle { font-weight: 600; color: #4a5568; margin-bottom: 0.25rem; }
+        .institution { color: #718096; margin-bottom: 2rem; font-style: italic; }
+        
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
         .nav-link {
-            display: inline-block;
-            margin-top: 1.5rem;
-            padding: 10px 20px;
+            padding: 12px 20px;
             background-color: #2980b9;
             color: white;
             text-decoration: none;
-            border-radius: 6px;
-            transition: background 0.3s;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
-        .nav-link:hover { background-color: #3498db; }
+        .nav-link:hover {
+            background-color: #1a5276;
+            transform: translateY(-2px);
+        }
+        .nav-link.secondary {
+            background-color: #27ae60;
+        }
+        .nav-link.secondary:hover {
+            background-color: #1e8449;
+        }
     </style>
 </head>
 <body>
 
     <div class="card">
         <h1>Tyron Vereen</h1>
-        <p><strong>Professor</strong></p>
-        <p>Houston City College</p>
+        <div class="subtitle">Professor</div>
+        <div class="institution">Houston City College</div>
         
-        <a href="government.html" id="navButton" class="nav-link">Go to Government Page</a>
+        <div class="nav-links">
+            <a href="government.html" class="nav-link">Government Page</a>
+            <a href="lesson_generator.html" class="nav-link secondary">Lesson Generator</a>
+        </div>
     </div>
 
     <script>
-        // JavaScript link/interaction
-        const navButton = document.getElementById('navButton');
-        
-        navButton.addEventListener('click', (e) => {
-            console.log("Navigating to government.html");
-            // Navigation happens automatically via href
-        });
+        // Log interaction
+        console.log("Welcome to Tyron Vereen's Faculty Portal.");
     </script>
 </body>
 </html>
