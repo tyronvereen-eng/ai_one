@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Admin Mastery Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .theme-dark { background-color: #0f172a; color: #f1f5f9; }
+        .theme-dark .card { background-color: #1e293b; border-color: #334155; }
+        .theme-dark input, .theme-dark select, .theme-dark textarea { background-color: #0f172a; border-color: #475569; color: white; }
+    </style>
+</head>
+<body class="bg-slate-50 transition-colors duration-300 min-h-screen">
+    <div id="app-container" class="max-w-5xl mx-auto p-6">
+        <nav class="flex justify-between items-center mb-10 bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+            <h1 class="text-3xl font-extrabold text-blue-900 dark:text-blue-300 tracking-tight">AdminHub <span class="text-sm font-normal opacity-70">Interactive</span></h1>
+            <button onclick="document.body.classList.toggle('theme-dark')" class="px-6 py-2 bg-slate-900 text-white dark:bg-blue-600 rounded-full font-bold hover:opacity-90">Toggle Theme</button>
+        </nav>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Prompt Architect -->
+            <section class="md:col-span-2 card bg-white p-8 rounded-3xl shadow-lg border border-slate-100">
+                <h2 class="text-2xl font-bold mb-6 text-blue-900">AI Prompt Architect</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <input id="lessonTitle" placeholder="Lesson Title" class="col-span-2 p-3 border rounded-xl">
+                    <input id="subject" placeholder="Subject (e.g. ADA Compliance)" class="col-span-2 p-3 border rounded-xl">
+                    <select id="aiModel" class="p-3 border rounded-xl bg-slate-50">
+                        <option>Gemini 2.5 Flash</option>
+                        <option>Gemini 1.5 Pro</option>
+                    </select>
+                    <select id="taskType" class="p-3 border rounded-xl bg-slate-50">
+                        <option>Case Study Analysis</option>
+                        <option>Policy Summary</option>
+                        <option>Draft an Email</option>
+                        <option>Generate Quiz Questions</option>
+                    </select>
+                    <select id="topic" class="p-3 border rounded-xl bg-slate-50"><option>Budgeting</option><option>Policy Implementation</option><option>ADA Compliance</option></select>
+                    <select id="perspective" class="p-3 border rounded-xl bg-slate-50"><option>City Manager</option><option>Policy Analyst</option></select>
+                    <button onclick="generatePrompt()" class="p-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 font-bold">Generate</button>
+                    <textarea id="promptOut" class="col-span-2 p-4 bg-slate-100 rounded-xl text-sm h-32" readonly></textarea>
+                    <button onclick="copyPrompt()" class="col-span-2 p-2 bg-slate-800 text-white rounded-lg hover:bg-black font-semibold">Copy to Clipboard</button>
+                </div>
+            </section>
+
+            <!-- Assessment -->
+            <section class="card bg-white p-8 rounded-3xl shadow-lg border border-slate-100">
+                <h2 class="text-2xl font-bold mb-6 text-emerald-700">Assessment</h2>
+                <div id="assessment-area" class="space-y-4">
+                    <p class="text-sm italic text-slate-500">Ready to test your knowledge?</p>
+                    <button onclick="startQuiz()" class="w-full py-4 border-2 border-emerald-600 text-emerald-600 rounded-2xl font-bold hover:bg-emerald-50">Launch Pre-Test</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Learning Content -->
+        <section class="mt-8 bg-white p-10 rounded-3xl shadow-sm border border-slate-200">
+            <h2 id="content-title" class="text-3xl font-bold mb-6 text-slate-900">Concept Mastery</h2>
+            <div id="content-body" class="space-y-6">
+                <div class="bg-blue-50 p-6 rounded-2xl border-l-4 border-blue-600">
+                    <h3 class="font-bold text-lg">Analogy: The Ship of State</h3>
+                    <p>Bureaucracy is like a massive supertanker. It takes significant force and time to shift its course, but once moving, it provides the stability required to transport essential services across the turbulent waters of public needs.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-2">ADA Compliance Checklist</h3>
+                    <ul class="list-disc ml-6 space-y-1">
+                        <li>Physical access: Ramps, door widths, and restroom facilities.</li>
+                        <li>Digital access: Alt-text on all government documents.</li>
+                        <li>Policy access: Clear, readable, and jargon-free public information.</li>
+                    </ul>
+                </div>
+                <button onclick="window.print()" class="px-8 py-3 bg-indigo-900 text-white rounded-2xl font-bold hover:bg-indigo-800">Print/Download Lesson</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function generatePrompt() {
+            const p = `Act as a ${document.getElementById('perspective').value}. Perform a ${document.getElementById('taskType').value} on ${document.getElementById('topic').value} for ${document.getElementById('subject').value} regarding ${document.getElementById('lessonTitle').value}.`;
+            document.getElementById('promptOut').value = p;
+        }
+
+        function copyPrompt() {
+            navigator.clipboard.writeText(document.getElementById('promptOut').value);
+            alert("Prompt copied!");
+        }
+
+        function startQuiz() {
+            document.getElementById('assessment-area').innerHTML = `<p class="font-bold">Q: What ensures equitable access?</p><button onclick="alert('Correct!')" class="w-full p-3 bg-emerald-100 rounded-lg">A) ADA Standards</button>`;
+        }
+    </script>
+</body>
+</html>
