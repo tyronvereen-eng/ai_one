@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Policy Practice Exam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #f3f4f6; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow-md">
+        <h1 class="text-2xl font-bold mb-4">Government Policy: Freshman Practice Exam</h1>
+        <div id="exam-container"></div>
+        <button onclick="submitExam()" class="mt-6 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Submit Exam</button>
+        <div id="results" class="mt-6 p-4 rounded hidden"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { type: 'mc', q: 'Which of the following best defines "Public Policy"?', options: ['The private decisions of individuals', 'A course of action adopted by government to solve problems', 'Corporate lobbying efforts', 'Laws passed exclusively by the Supreme Court'], a: 1 },
+            { type: 'mc', q: 'The "agenda setting" stage in the policy process refers to:', a: 1, options: ['Implementing the law', 'Deciding what problems deserve government attention', 'Writing the legislation', 'Evaluating the success of a policy'] },
+            { type: 'mc', q: 'What is the primary role of the bureaucracy in policy?', a: 2, options: ['Drafting bills', 'Voting on bills', 'Implementing policy and creating regulations', 'Interpreting the Constitution'] },
+            { type: 'mc', q: 'Fiscal policy is primarily managed through:', a: 0, options: ['Taxing and spending', 'Interest rate manipulation', 'Foreign trade agreements', 'Executive orders'] },
+            { type: 'mc', q: 'Which institution has the final say on the constitutionality of a policy?', a: 3, options: ['The President', 'Congress', 'The Bureaucracy', 'The Supreme Court'] },
+            { type: 'match', q: 'Match the term to its definition', items: ['Fiscal Policy', 'Monetary Policy'], options: ['A: Use of taxes/spending', 'B: Control of money supply'], pairs: {0: 'A', 1: 'B'} },
+            { type: 'fill', q: 'The process of translating a bill into action is known as policy ________.', a: 'implementation' },
+            { type: 'fill', q: 'A policy that provides benefits to specific groups is called a ________ policy.', a: 'distributive' },
+            { type: 'essay', q: 'Discuss the role of interest groups in the public policy process. (Briefly)' }
+        ];
+
+        function renderExam() {
+            const container = document.getElementById('exam-container');
+            questions.forEach((q, i) => {
+                const div = document.createElement('div');
+                div.className = 'mb-6 p-4 border rounded';
+                div.innerHTML = `<p class="font-semibold">${i + 1}. ${q.q}</p>`;
+                if (q.type === 'mc') {
+                    q.options.forEach((opt, idx) => {
+                        div.innerHTML += `<label class="block"><input type="radio" name="q${i}" value="${idx}"> ${opt}</label>`;
+                    });
+                } else if (q.type === 'fill') {
+                    div.innerHTML += `<input type="text" class="border p-1 mt-2 w-full" name="q${i}">`;
+                } else if (q.type === 'essay') {
+                    div.innerHTML += `<textarea class="border p-2 mt-2 w-full" name="q${i}"></textarea>`;
+                }
+                container.appendChild(div);
+            });
+        }
+
+        function submitExam() {
+            const resDiv = document.getElementById('results');
+            resDiv.classList.remove('hidden');
+            resDiv.className = 'mt-6 p-4 rounded bg-green-100';
+            resDiv.innerHTML = '<h2 class="font-bold">Exam Submitted!</h2><p>Review the provided answer key below.</p>';
+            // Simple logic here - in a real app, calculate scores
+        }
+        renderExam();
+    </script>
+</body>
+</html>
